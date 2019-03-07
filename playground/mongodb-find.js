@@ -24,7 +24,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => { // saw de
         //   _id: new ObjectID('5c800f43d873ab18bd992cba')
         // }).toArray().then((docs) => {
         //   console.log('Todos');
-        //   console.log(JSON.stringify(docs, undefined, 2));
+        //   console.log(docs);
         // }, (err) => {
         //   console.log('Unable to fetch todos', err);
         // });
