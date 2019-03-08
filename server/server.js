@@ -7,19 +7,24 @@ mongoose.connect('mongodb://localhost:27017/TodoApp');
 // using mongoose we first create a model define the document properties
 var Todomongoose = mongoose.model('Todomongoose', {
     text: {
-        type: String
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     completedAt: {
-        type: Number
+        type: Number,
+        default: null
     }
 });
 
 // now creating a new instance for a document
 var newTodo = new Todomongoose({
-    text: 'Play football'
+    text: 'Play badminton'
 });
 
 // saving the above document to the database
@@ -31,7 +36,7 @@ newTodo.save().then((doc) => {
 
 //creating next instance and saving
 var otherTodo = new Todomongoose({
-    text: 'Play cricket',
+    text: 'Sleep',
     completed: false,
     completedAt: 123
 });
@@ -40,4 +45,37 @@ otherTodo.save().then((doc) => {
     console.log('Successfully saved Todo', doc);
 }, (err) => {
     console.log('Error occured in saving todo', err);
+});
+
+// new model starts
+
+var usermongoose = mongoose.model('usermongoose', {
+    username: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 1
+    }, email: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 1
+    }, age: {
+        type: Number,
+        trim: true,
+        minlength: 1,
+        default: null
+    }
+});
+
+var newusermongoose = new usermongoose({
+    username: 'piyushkapoorixe',
+    email: 'hello@gmail.com',
+    age: 20
+});
+
+newusermongoose.save().then((doc) => {
+    console.log('successfully saved the user', doc);
+}, (err) => {
+    console.log('Error in saving user', err);
 });
