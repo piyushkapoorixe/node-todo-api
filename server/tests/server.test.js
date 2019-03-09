@@ -4,8 +4,18 @@ const request = require('supertest');
 const {app} = require('./../server');
 const {Todomongoose} = require('./../models/todo');
 
+const dummyTodos = [{
+    text: 'Test Todo 1'
+}, {
+    text: 'Test Todo 2'
+}, {
+    text: 'Test Todo 3'
+}];
+
 beforeEach((done) => {
-  Todomongoose.deleteMany({}).then(() => done());
+  Todomongoose.deleteMany({}).then(() => {
+      return Todomongoose.insertMany(dummyTodos);
+  }).then(() => done());
 });
 
 describe('POST /todos', () => {
@@ -25,8 +35,8 @@ describe('POST /todos', () => {
         }
 
         Todomongoose.find().then((todos) => {
-          expect(todos.length).toBe(1);
-          expect(todos[0].text).toBe(text);
+          expect(todos.length).toBe(4);
+          expect(todos[3].text).toBe(text);
           done();
         }).catch((e) => done(e));
       });
@@ -43,9 +53,21 @@ describe('POST /todos', () => {
         }
 
         Todomongoose.find().then((todos) => {
-          expect(todos.length).toBe(0);
+          expect(todos.length).toBe(3);
           done();
         }).catch((e) => done(e));
       });
   });
+});
+
+describe('GET /todos', () => {
+    it('should get all todos', (done) => {
+        request(app)
+            .get('/todos')
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todos.length).toBe(3);
+            })
+            .end(done);
+    });
 });
