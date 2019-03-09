@@ -27,6 +27,15 @@ app.post('/todos', (req, res) => {
     });
 });
 
+app.get('/todos', (req, res) => {
+    Todomongoose.find().then((todos) => {
+        res.send({todos}); // instead of sending array of todos we send in object form
+    }, (err) => {
+        console.log('Error occured in finding todos', err);
+        res.status(400).send(err);
+    });
+});
+
 app.listen(3000, () => {
     console.log('Listening at port 3000');
 });
