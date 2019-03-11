@@ -60,4 +60,10 @@ app.listen(port, () => {
     console.log(`Listening at port ${port}`);
 });
 
+// package.json se hataya
+// "scripts": {
+//     "start": "node server/server.js",
+//     "test": "mocha server/**/*.test.js"
+//   },
+
 module.exports = {app};
