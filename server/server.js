@@ -8,6 +8,8 @@ var {usermongoose} = require('./models/user.js');
 
 var app = express();
 
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
@@ -54,8 +56,8 @@ app.get('/todos/:todoid', (req, res) => {
       });    
 });
 
-app.listen(3000, () => {
-    console.log('Listening at port 3000');
+app.listen(port, () => {
+    console.log(`Listening at port ${port}`);
 });
 
 module.exports = {app};
