@@ -56,6 +56,23 @@ app.get('/todos/:todoid', (req, res) => {
       });    
 });
 
+app.delete('/todos/:todoid', (req, res) => {
+    var todoid = req.params.todoid;
+
+    if(!ObjectID.isValid(todoid)) {
+        return res.status(404).send();
+    }
+
+    Todomongoose.findByIdAndRemove(todoid).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+        res.send({todo});
+    }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
 });
