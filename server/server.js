@@ -99,6 +99,23 @@ app.patch('/todos/:todoid', (req, res) => {
     });
 });
 
+app.post('/users', (req, res) => {
+    var newusermongoose = new usermongoose({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    age: req.body.age
+    });
+
+    newusermongoose.save().then((user) => {
+        console.log('successfully saved the user', user);
+        res.status(200).send(user);
+    }, (err) => {
+        console.log('Error in saving user', err);
+        res.status(400).send(user);
+    });
+});
+
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
 });

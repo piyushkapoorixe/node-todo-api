@@ -11,7 +11,7 @@ const uri = "mongodb://piyush:kap00r@ds121495.mlab.com:21495/piyush";
 mongoose.connect(uri);
 
 //uncomment the following line of code for localhost usage
- //mongoose.connect('mongodb://localhost:27017/TodoApp');
+//mongoose.connect('mongodb://localhost:27017/TodoApp');
 
 
 module.exports = {
